@@ -25,6 +25,8 @@ export default function AdminDashboard() {
     { id: 1, title: "New Lead", message: "Naploo Investment Query from Mumbai", time: "5m ago", type: "lead" },
     { id: 2, title: "Urgent", message: "OEM Partner Request Pending", time: "30m ago", type: "urgent" },
     { id: 3, title: "System", message: "Backup Completed Successfully", time: "1h ago", type: "system" },
+    { id: 4, title: "Update", message: "New Beauty Product Added", time: "2h ago", type: "system" },
+    { id: 5, title: "Alert", message: "CloudDrive Server Maintenance", time: "3h ago", type: "urgent" },
   ];
 
   const revenueData = [
@@ -44,13 +46,6 @@ export default function AdminDashboard() {
     { name: "IT Connect", value: 5 },
   ];
 
-  const notifications = [
-    { id: 1, title: "New Lead", message: "Naploo Investment Query from Mumbai", time: "5m ago", type: "lead" },
-    { id: 2, title: "Urgent", message: "OEM Partner Request Pending", time: "30m ago", type: "urgent" },
-    { id: 3, title: "System", message: "Backup Completed Successfully", time: "1h ago", type: "system" },
-    { id: 4, title: "Update", message: "New Beauty Product Added", time: "2h ago", type: "system" },
-    { id: 5, title: "Alert", message: "CloudDrive Server Maintenance", time: "3h ago", type: "urgent" },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">

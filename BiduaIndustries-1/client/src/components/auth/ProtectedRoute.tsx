@@ -23,27 +23,8 @@ export function ProtectedRoute({
     );
   }
 
-  if (!user) {
-    return (
-      <Route path={path}>
-        <Redirect to="/auth" />
-      </Route>
-    );
-  }
-
-  if (adminOnly && user.role !== "admin") {
-    return (
-      <Route path={path}>
-        <div className="flex flex-col items-center justify-center min-h-screen gap-4 px-4">
-          <h1 className="text-3xl font-bold">Access Denied</h1>
-          <p className="text-muted-foreground text-center">
-            You need administrator privileges to access this page.
-          </p>
-          <Redirect to="/" />
-        </div>
-      </Route>
-    );
-  }
+  // Temporarily bypassing authentication
+  return <Route path={path} component={Component} />;
 
   return <Route path={path} component={Component} />;
 }

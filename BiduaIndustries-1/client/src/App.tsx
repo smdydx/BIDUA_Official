@@ -19,7 +19,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AuthProvider } from "@/hooks/use-auth";
 import { Suspense } from 'react'; // Added import for Suspense
-import LoadingSpinner from './components/LoadingSpinner'; // Assumed location for LoadingSpinner
+import { LoadingSpinner } from '@/components/ui/loading-spinner'; // Assumed location for LoadingSpinner
 
 
 function Router() {

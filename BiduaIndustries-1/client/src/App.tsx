@@ -18,6 +18,9 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { AuthProvider } from "@/hooks/use-auth";
+import { Suspense } from 'react'; // Added import for Suspense
+import LoadingSpinner from './components/LoadingSpinner'; // Assumed location for LoadingSpinner
+
 
 function Router() {
   const [location] = useLocation();
@@ -35,10 +38,10 @@ function Router() {
       <Route path="/it-connect" component={ITConnectPage} />
       <Route path="/investor" component={InvestorPage} />
       <Route path="/auth" component={AuthPage} />
-      
+
       {/* Admin Routes - Protected with admin role */}
       <ProtectedRoute path="/admin" component={AdminDashboard} adminOnly={true} />
-      
+
       {/* 404 Route */}
       <Route component={NotFound} />
     </Switch>
@@ -57,7 +60,9 @@ function App() {
           <div className="min-h-screen flex flex-col">
             {!isAdminRoute && <Header />}
             <main className={isAdminRoute ? "" : "flex-grow"}>
-              <Router />
+              <Suspense fallback={<LoadingSpinner />}>
+                <Router />
+              </Suspense>
             </main>
             {!isAdminRoute && <Footer />}
           </div>

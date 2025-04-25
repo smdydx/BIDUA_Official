@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { LeadsManagement } from "@/components/admin/LeadsManagement";
 import { TicketManagement } from "@/components/admin/TicketManagement";
+import { ProductManagement } from "@/components/admin/ProductManagement";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, MessageSquare, TrendingUp, Bell, Building2, Package2, Cloud, Sparkles, Cpu } from "lucide-react";

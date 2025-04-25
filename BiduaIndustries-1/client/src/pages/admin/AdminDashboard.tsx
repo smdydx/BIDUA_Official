@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Users, MessageSquare, TrendingUp, Bell, Building2, 
   Package2, Cloud, Sparkles, Cpu, Image, Pencil, Settings,
-  FileText, BarChart, Layout, ShoppingBag, UserCog
+  FileText, Layout, ShoppingBag, UserCog, BarChart as BarChartIcon
 } from "lucide-react";
 import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 

@@ -137,6 +137,7 @@ export default function AdminDashboard() {
           <TabsTrigger value="leads">Leads Management</TabsTrigger>
           <TabsTrigger value="tickets">Ticket Management</TabsTrigger>
           <TabsTrigger value="products">Products</TabsTrigger>
+          <TabsTrigger value="content">Content</TabsTrigger>
           <TabsTrigger value="partners">Partners</TabsTrigger>
         </TabsList>
 
@@ -149,14 +150,37 @@ export default function AdminDashboard() {
         </TabsContent>
 
         <TabsContent value="products">
+          <ProductManagement />
+        </TabsContent>
+
+        <TabsContent value="content">
           <Card>
             <CardHeader>
-              <CardTitle>Product Management</CardTitle>
+              <CardTitle>Website Content Management</CardTitle>
             </CardHeader>
             <CardContent>
-              {/* Product management will be implemented in the next phase */}
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Product management features coming soon</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {divisions.map((division) => (
+                  <motion.div
+                    key={division.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-lg border p-4 hover:shadow-lg transition-all"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <division.icon className="w-8 h-8 text-primary" />
+                      <h3 className="text-lg font-semibold">{division.name}</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <Button variant="outline" className="w-full justify-start">
+                        <Image className="w-4 h-4 mr-2" /> Change Images
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Pencil className="w-4 h-4 mr-2" /> Edit Content
+                      </Button>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </CardContent>
           </Card>

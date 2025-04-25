@@ -77,15 +77,16 @@ export function Footer() {
             <div className="flex flex-col space-y-3 mb-6">
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-secondary" />
-                <span className="text-sm">23 Tech Park, Sector 15, Noida, UP, India</span>
+                <span className="text-sm">C/o Ramaera Industries Ltd 
+                 H77-Ground floor, Sec 62 , Noida, UP Pin 201305</span>
               </div>
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-secondary" />
-                <span className="text-sm">+91 8899889988</span>
+                <span className="text-sm">+91 xxx-xxx-xxxx</span>
               </div>
               <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-secondary" />
-                <span className="text-sm">info@bidua.in</span>
+                <span className="text-sm">biduaindustries@gmail.com</span>
               </div>
             </div>
             <div className="flex space-x-4">

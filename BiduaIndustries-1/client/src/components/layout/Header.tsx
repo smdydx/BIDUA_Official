@@ -11,15 +11,17 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location] = useLocation();
   const { scrollY } = useScroll();
+  const [showDivision, setShowDivision] = useState(false);
+
   
   const isScrolled = scrollY > 50;
 
   const navLinks = [
     { href: "/", label: "Home", icon: <Home className="w-4 h-4 mr-1" /> },
     { href: "/naploo", label: "Naploo™", icon: <FaBed className="w-4 h-4 mr-1" /> },
-    { href: "/beauty-care", label: "Beauty Care", icon: <FaSpa className="w-4 h-4 mr-1" /> },
+    { href: "/beauty-care", label: "BeautyCare", icon: <FaSpa className="w-4 h-4 mr-1" /> },
     { href: "/cloud-drive", label: "CloudDrive™", icon: <FaCloudUploadAlt className="w-4 h-4 mr-1" /> },
-    { href: "/oem-solutions", label: "OEM Solutions", icon: <FaIndustry className="w-4 h-4 mr-1" /> },
+    { href: "/oem-solutions", label: "OEMSolutions", icon: <FaIndustry className="w-4 h-4 mr-1" /> },
     { href: "/it-connect", label: "IT Connect", icon: <FaLaptopCode className="w-4 h-4 mr-1" /> },
   ];
 
@@ -87,42 +89,80 @@ export function Header() {
           )}
         </button>
       </nav>
-      
-      {/* Mobile Menu */}
-      <div 
-        className={cn(
-          "lg:hidden bg-background shadow-lg w-full absolute top-full left-0 py-4 px-4 border-t border-primary transition-all duration-300",
-          mobileMenuOpen ? "block" : "hidden"
-        )}
+ {/* Mobile Menu */}
+<div 
+  className={cn(
+    "lg:hidden bg-background shadow-lg w-full absolute top-full left-0 py-4 px-4 border-t border-primary transition-all duration-300",
+    mobileMenuOpen ? "block" : "hidden"
+  )}
+>
+  <div className="flex flex-col space-y-4">
+    {/* Static Home and About */}
+    <Link href="/" className={cn("flex items-center text-foreground hover:text-secondary transition-colors py-2", location === "/" && "text-secondary font-semibold")}>
+      <Home className="w-4 h-4 mr-2" />
+      Home
+    </Link>
+    <Link href="/about" className={cn("flex items-center text-foreground hover:text-secondary transition-colors py-2", location === "/about" && "text-secondary font-semibold")}>
+      <Info className="w-4 h-4 mr-2" />
+      About
+    </Link>
+
+    {/* Division Dropdown */}
+    <div>
+      <button 
+        onClick={() => setShowDivision(!showDivision)} 
+        className="w-full flex justify-between items-center text-foreground font-medium py-2 focus:outline-none"
       >
-        <div className="flex flex-col space-y-4">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.href} 
-              href={link.href} 
-              className={cn(
-                "flex items-center text-foreground hover:text-secondary transition-colors py-2",
-                location === link.href && "text-secondary font-semibold"
-              )}
-            >
-              {link.icon}
-              <span className="ml-2">{link.label}</span>
-            </Link>
-          ))}
-          <Link href="/investor" className="py-2">
-            <Button variant="secondary" className="w-full flex items-center justify-center gap-2">
-              <DollarSign className="w-4 h-4" />
-              Invest in Naploo™
-            </Button>
+        <div className="flex items-center">
+          <FaIndustry className="w-4 h-4 mr-2" />
+          Division
+        </div>
+        <span className="text-xl">{showDivision ? '-' : '+'}</span>
+      </button>
+      {showDivision && (
+        <div className="pl-6 mt-1 space-y-2">
+          <Link href="/naploo" className={cn("flex items-center text-foreground hover:text-secondary transition-colors", location === "/naploo" && "text-secondary font-semibold")}>
+            <FaBed className="w-4 h-4 mr-2" />
+            Naploo
           </Link>
-          <Link href="/#contact" className="py-2">
-            <Button className="w-full flex items-center justify-center gap-2">
-              <Phone className="w-4 h-4" />
-              Contact Us
-            </Button>
+          <Link href="/beauty-care" className={cn("flex items-center text-foreground hover:text-secondary transition-colors", location === "/beauty-care" && "text-secondary font-semibold")}>
+            <FaSpa className="w-4 h-4 mr-2" />
+            Beauty Care
+          </Link>
+          <Link href="/cloud-drive" className={cn("flex items-center text-foreground hover:text-secondary transition-colors", location === "/cloud-drive" && "text-secondary font-semibold")}>
+            <FaCloudUploadAlt className="w-4 h-4 mr-2" />
+            Cloud Drive
+          </Link>
+          <Link href="/oem-solutions" className={cn("flex items-center text-foreground hover:text-secondary transition-colors", location === "/oem-solutions" && "text-secondary font-semibold")}>
+            <FaIndustry className="w-4 h-4 mr-2" />
+            OEM Solutions
+          </Link>
+          <Link href="/it-connect" className={cn("flex items-center text-foreground hover:text-secondary transition-colors", location === "/it-connect" && "text-secondary font-semibold")}>
+            <FaLaptopCode className="w-4 h-4 mr-2" />
+            IT Connect
           </Link>
         </div>
-      </div>
+      )}
+    </div>
+
+    {/* Invest and Contact Buttons */}
+    <Link href="/investor" className="py-2">
+      <Button variant="secondary" className="w-full flex items-center justify-center gap-2">
+        <DollarSign className="w-4 h-4" />
+        Invest in Naploo™
+      </Button>
+    </Link>
+    <Link href="/#contact" className="py-2">
+      <Button className="w-full flex items-center justify-center gap-2">
+        <Phone className="w-4 h-4" />
+        Contact Us
+      </Button>
+    </Link>
+  </div>
+</div>
+
+
+
     </header>
   );
 }

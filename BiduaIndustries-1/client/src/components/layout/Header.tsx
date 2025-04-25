@@ -18,12 +18,17 @@ export function Header() {
 
   const navLinks = [
     { href: "/", label: "Home", icon: <Home className="w-4 h-4 mr-1" /> },
-    { href: "/about", label: "About", icon: <Info className="w-4 h-4 mr-1" /> },
-    { href: "/naploo", label: "Naploo™", icon: <FaBed className="w-4 h-4 mr-1" /> },
-    { href: "/beauty-care", label: "BeautyCare", icon: <FaSpa className="w-4 h-4 mr-1" /> },
-    { href: "/cloud-drive", label: "CloudDrive™", icon: <FaCloudUploadAlt className="w-4 h-4 mr-1" /> },
-    { href: "/oem-solutions", label: "OEMSolutions", icon: <FaIndustry className="w-4 h-4 mr-1" /> },
-    { href: "/it-connect", label: "IT Connect", icon: <FaLaptopCode className="w-4 h-4 mr-1" /> },
+    {
+      label: "Divisions",
+      icon: <FaIndustry className="w-4 h-4 mr-1" />,
+      subItems: [
+        { href: "/naploo", label: "Naploo™", icon: <FaBed className="w-4 h-4 mr-1" /> },
+        { href: "/beauty-care", label: "BeautyCare", icon: <FaSpa className="w-4 h-4 mr-1" /> },
+        { href: "/cloud-drive", label: "CloudDrive™", icon: <FaCloudUploadAlt className="w-4 h-4 mr-1" /> },
+        { href: "/oem-solutions", label: "OEMSolutions", icon: <FaIndustry className="w-4 h-4 mr-1" /> },
+        { href: "/it-connect", label: "IT Connect", icon: <FaLaptopCode className="w-4 h-4 mr-1" /> },
+      ]
+    }
   ];
 
   // Close mobile menu when location changes
@@ -50,18 +55,43 @@ export function Header() {
         
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.href} 
-              href={link.href} 
-              className={cn(
-                "flex items-center text-foreground hover:text-secondary transition-colors",
-                location === link.href && "text-secondary font-semibold"
-              )}
-            >
-              {link.icon}
-              {link.label}
-            </Link>
+          {navLinks.map((link, index) => (
+            link.subItems ? (
+              <div key={index} className="relative group">
+                <button className="flex items-center text-foreground hover:text-secondary transition-colors">
+                  {link.icon}
+                  {link.label}
+                  <ChevronDown className="w-4 h-4 ml-1" />
+                </button>
+                <div className="absolute left-0 mt-2 w-48 bg-background border rounded-md shadow-lg hidden group-hover:block">
+                  {link.subItems.map((subItem) => (
+                    <Link
+                      key={subItem.href}
+                      href={subItem.href}
+                      className={cn(
+                        "flex items-center px-4 py-2 text-foreground hover:text-secondary hover:bg-secondary/10 transition-colors",
+                        location === subItem.href && "text-secondary font-semibold"
+                      )}
+                    >
+                      {subItem.icon}
+                      {subItem.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "flex items-center text-foreground hover:text-secondary transition-colors",
+                  location === link.href && "text-secondary font-semibold"
+                )}
+              >
+                {link.icon}
+                {link.label}
+              </Link>
+            )
           ))}
           <Link href="/investor">
             <Button variant="secondary" className="flex items-center gap-1">

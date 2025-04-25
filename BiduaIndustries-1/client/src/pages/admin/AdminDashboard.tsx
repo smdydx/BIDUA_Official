@@ -1,9 +1,27 @@
+
 import { motion } from "framer-motion";
 import { LeadsManagement } from "@/components/admin/LeadsManagement";
 import { TicketManagement } from "@/components/admin/TicketManagement";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, MessageSquare, TrendingUp, Bell } from "lucide-react";
+import { Users, MessageSquare, TrendingUp, Bell, ChartPieIcon } from "lucide-react";
+import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
+
+const leadData = [
+  { month: 'Jan', Naploo: 40, Beauty: 24, CloudDrive: 20, OEM: 27, IT: 18 },
+  { month: 'Feb', Naploo: 30, Beauty: 28, CloudDrive: 25, OEM: 25, IT: 22 },
+  { month: 'Mar', Naploo: 45, Beauty: 32, CloudDrive: 30, OEM: 31, IT: 28 },
+  { month: 'Apr', Naploo: 50, Beauty: 35, CloudDrive: 28, OEM: 28, IT: 25 },
+];
+
+const ticketStatusData = [
+  { name: 'Open', value: 30 },
+  { name: 'In Progress', value: 45 },
+  { name: 'Resolved', value: 85 },
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 
 function AdminDashboard() {
   return (
@@ -46,6 +64,56 @@ function AdminDashboard() {
             </Card>
           </motion.div>
         ))}
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Division-wise Leads</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer className="h-[300px]" config={{}}>
+              <BarChart data={leadData}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <ChartTooltip />
+                <Bar dataKey="Naploo" fill="#8884d8" />
+                <Bar dataKey="Beauty" fill="#82ca9d" />
+                <Bar dataKey="CloudDrive" fill="#ffc658" />
+                <Bar dataKey="OEM" fill="#ff7300" />
+                <Bar dataKey="IT" fill="#0088FE" />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Ticket Status Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer className="h-[300px]" config={{}}>
+              <PieChart>
+                <Pie
+                  data={ticketStatusData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label
+                >
+                  {ticketStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <ChartTooltip />
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Main Content */}

@@ -26,6 +26,7 @@ function Router() {
     <Switch>
       {/* Public Routes */}
       <Route path="/" component={Home} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/naploo" component={NaplooPage} />
       <Route path="/beauty-care" component={BeautyCarePage} />
       <Route path="/cloud-drive" component={CloudDrivePage} />

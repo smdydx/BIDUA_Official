@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2, UserPlus, LogIn, Mail, Lock, User } from "lucide-react";
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "@/hooks/use-toast"
 
 const loginSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),

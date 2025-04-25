@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2, UserPlus, LogIn, Mail, Lock, User } from "lucide-react";
+import { toast } from "@/components/ui/use-toast"
 
 const loginSchema = z.object({
   username: z.string().min(2, { message: "Username must be at least 2 characters." }),
@@ -121,7 +121,16 @@ function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    await loginMutation.mutateAsync(values);
+    try {
+      await loginMutation.mutateAsync(values);
+      navigate("/"); // Redirect after successful login
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: error instanceof Error ? error.message : "Please check your credentials and try again",
+        variant: "destructive"
+      });
+    }
   }
 
   return (

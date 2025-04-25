@@ -53,7 +53,10 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function AdminDashboard() {
+export default import { LeadsManagement } from "@/components/admin/LeadsManagement";
+import { TicketManagement } from "@/components/admin/TicketManagement";
+
+function AdminDashboard() {
   const { user, logoutMutation } = useAuth();
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
@@ -271,6 +274,14 @@ export default function AdminDashboard() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            <div className="mt-8">
+              <LeadsManagement />
+            </div>
+
+            <div className="mt-8">
+              <TicketManagement />
             </div>
           </div>
         </main>

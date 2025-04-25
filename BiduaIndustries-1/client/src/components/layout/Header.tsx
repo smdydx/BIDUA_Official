@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { useScroll } from "@/hooks/use-scroll";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Home, Phone, DollarSign, Info } from "lucide-react";
+import { Menu, X, Home, Phone, DollarSign, Info, ChevronDown } from "lucide-react";
 import { FaSpa, FaCloudUploadAlt, FaIndustry, FaLaptopCode, FaBed } from "react-icons/fa";
 import BiduaLogo from '@/assets/bidua-logo.png';
 

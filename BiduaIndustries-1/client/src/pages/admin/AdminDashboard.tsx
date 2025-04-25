@@ -7,8 +7,183 @@ import { ProductManagement } from "@/components/admin/ProductManagement";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, MessageSquare, TrendingUp, Bell, Building2, Package2, Cloud, Sparkles, Cpu, Image, Pencil } from "lucide-react";
+import { 
+  Users, MessageSquare, TrendingUp, Bell, Building2, 
+  Package2, Cloud, Sparkles, Cpu, Image, Pencil, Settings,
+  FileText, BarChart, Layout, ShoppingBag, UserCog
+} from "lucide-react";
 import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+
+export default function AdminDashboard() {
+  const [selectedDivision, setSelectedDivision] = useState("all");
+  const [selectedTab, setSelectedTab] = useState("dashboard");
+
+  const stats = [
+    { title: "Total Users", value: "2,856", change: "+12%", icon: Users },
+    { title: "Active Products", value: "124", change: "+3", icon: Package2 },
+    { title: "Revenue", value: "₹85.2L", change: "+18%", icon: TrendingUp },
+    { title: "Support Tickets", value: "28", change: "-5", icon: MessageSquare },
+  ];
+
+  return (
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+      {/* Sidebar */}
+      <div className="hidden lg:flex w-64 flex-col fixed inset-y-0 bg-white dark:bg-gray-800 border-r">
+        <div className="p-4 border-b">
+          <h2 className="text-xl font-bold">BIDUA Admin</h2>
+          <p className="text-sm text-muted-foreground">Management Console</p>
+        </div>
+        <nav className="flex-1 p-4 space-y-2">
+          {[
+            { id: "dashboard", label: "Dashboard", icon: BarChart },
+            { id: "products", label: "Products", icon: ShoppingBag },
+            { id: "users", label: "Users", icon: UserCog },
+            { id: "content", label: "Content", icon: Layout },
+            { id: "leads", label: "Leads", icon: TrendingUp },
+            { id: "tickets", label: "Support", icon: MessageSquare },
+            { id: "reports", label: "Reports", icon: FileText },
+            { id: "settings", label: "Settings", icon: Settings },
+          ].map((item) => (
+            <Button
+              key={item.id}
+              variant={selectedTab === item.id ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setSelectedTab(item.id)}
+            >
+              <item.icon className="mr-2 h-4 w-4" />
+              {item.label}
+            </Button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 lg:ml-64">
+        <header className="bg-white dark:bg-gray-800 shadow-sm border-b p-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Dashboard</h1>
+            <div className="flex items-center space-x-4">
+              <Button variant="outline" size="icon">
+                <Bell className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Settings className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </header>
+
+        <main className="p-6">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-muted-foreground">
+                          {stat.title}
+                        </p>
+                        <h3 className="text-2xl font-bold mt-2">{stat.value}</h3>
+                        <p className={`text-sm mt-2 ${stat.change.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
+                          {stat.change} from last month
+                        </p>
+                      </div>
+                      <div className="p-3 bg-primary/10 rounded-full">
+                        <stat.icon className="h-6 w-6 text-primary" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Main Content Area */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick Actions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button className="w-full justify-start">
+                    <Package2 className="mr-2 h-4 w-4" /> Add New Product
+                  </Button>
+                  <Button className="w-full justify-start">
+                    <FileText className="mr-2 h-4 w-4" /> Create Report
+                  </Button>
+                  <Button className="w-full justify-start">
+                    <Users className="mr-2 h-4 w-4" /> Manage Users
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Revenue Overview</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={monthlyLeads}>
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="Naploo" fill="#0088FE" />
+                        <Bar dataKey="Beauty" fill="#00C49F" />
+                        <Bar dataKey="CloudDrive" fill="#FFBB28" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Division Performance</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={leadsByDivision}
+                          dataKey="leads"
+                          nameKey="division"
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={80}
+                          label
+                        >
+                          {leadsByDivision.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
 
 const leadsByDivision = [
   { division: "Naploo", leads: 45, color: "#0088FE" },
@@ -18,190 +193,9 @@ const leadsByDivision = [
   { division: "IT", leads: 28, color: "#8884d8" }
 ];
 
-const ticketStatus = [
-  { status: "Open", value: 30, color: "#FF4842" },
-  { status: "In Progress", value: 45, color: "#FFC107" },
-  { status: "Resolved", value: 85, color: "#54D62C" }
-];
-
 const monthlyLeads = [
-  { month: 'Jan', Naploo: 40, Beauty: 24, CloudDrive: 20, OEM: 27, IT: 18 },
-  { month: 'Feb', Naploo: 30, Beauty: 28, CloudDrive: 25, OEM: 25, IT: 22 },
-  { month: 'Mar', Naploo: 45, Beauty: 32, CloudDrive: 30, OEM: 31, IT: 28 },
-  { month: 'Apr', Naploo: 50, Beauty: 35, CloudDrive: 28, OEM: 28, IT: 25 }
+  { month: 'Jan', Naploo: 40, Beauty: 24, CloudDrive: 20 },
+  { month: 'Feb', Naploo: 30, Beauty: 28, CloudDrive: 25 },
+  { month: 'Mar', Naploo: 45, Beauty: 32, CloudDrive: 30 },
+  { month: 'Apr', Naploo: 50, Beauty: 35, CloudDrive: 28 }
 ];
-
-const divisions = [
-  { id: "naploo", name: "Naploo", icon: Building2, count: 45 },
-  { id: "beauty", name: "Beauty Care", icon: Sparkles, count: 30 },
-  { id: "cloud", name: "CloudDrive", icon: Cloud, count: 25 },
-  { id: "oem", name: "OEM Solutions", icon: Package2, count: 35 },
-  { id: "it", name: "IT Connect", icon: Cpu, count: 28 }
-];
-
-export default function AdminDashboard() {
-  const [selectedDivision, setSelectedDivision] = useState("all");
-
-  return (
-    <div className="p-6 space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h1 className="text-3xl font-bold">Welcome to BIDUA Admin</h1>
-        <p className="text-muted-foreground">Manage your business operations</p>
-      </motion.div>
-
-      {/* Division Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        {divisions.map((division, index) => (
-          <motion.div
-            key={division.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <Card className={`cursor-pointer ${selectedDivision === division.id ? 'border-primary' : ''}`}
-                  onClick={() => setSelectedDivision(division.id)}>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-4">
-                  <division.icon className="h-8 w-8 text-primary" />
-                  <div>
-                    <p className="font-medium">{division.name}</p>
-                    <p className="text-2xl font-bold">{division.count}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Analytics Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Leads by Division</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={leadsByDivision}
-                    dataKey="leads"
-                    nameKey="division"
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    label
-                  >
-                    {leadsByDivision.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Monthly Performance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={monthlyLeads}>
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="Naploo" fill="#0088FE" />
-                  <Bar dataKey="Beauty" fill="#00C49F" />
-                  <Bar dataKey="CloudDrive" fill="#FFBB28" />
-                  <Bar dataKey="OEM" fill="#FF8042" />
-                  <Bar dataKey="IT" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Main Content Tabs */}
-      <Tabs defaultValue="leads" className="space-y-6">
-        <TabsList className="bg-card border">
-          <TabsTrigger value="leads">Leads Management</TabsTrigger>
-          <TabsTrigger value="tickets">Ticket Management</TabsTrigger>
-          <TabsTrigger value="products">Products</TabsTrigger>
-          <TabsTrigger value="content">Content</TabsTrigger>
-          <TabsTrigger value="partners">Partners</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="leads">
-          <LeadsManagement selectedDivision={selectedDivision} />
-        </TabsContent>
-
-        <TabsContent value="tickets">
-          <TicketManagement />
-        </TabsContent>
-
-        <TabsContent value="products">
-          <ProductManagement />
-        </TabsContent>
-
-        <TabsContent value="content">
-          <Card>
-            <CardHeader>
-              <CardTitle>Website Content Management</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {divisions.map((division) => (
-                  <motion.div
-                    key={division.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="rounded-lg border p-4 hover:shadow-lg transition-all"
-                  >
-                    <div className="flex items-center gap-4 mb-4">
-                      <division.icon className="w-8 h-8 text-primary" />
-                      <h3 className="text-lg font-semibold">{division.name}</h3>
-                    </div>
-                    <div className="space-y-3">
-                      <Button variant="outline" className="w-full justify-start">
-                        <Image className="w-4 h-4 mr-2" /> Change Images
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start">
-                        <Pencil className="w-4 h-4 mr-2" /> Edit Content
-                      </Button>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="partners">
-          <Card>
-            <CardHeader>
-              <CardTitle>Partner Management</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {/* Partner management will be implemented in the next phase */}
-              <div className="text-center py-8">
-                <p className="text-muted-foreground">Partner management features coming soon</p>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
-  );
-}

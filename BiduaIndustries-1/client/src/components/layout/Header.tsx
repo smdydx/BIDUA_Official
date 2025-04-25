@@ -18,6 +18,7 @@ export function Header() {
 
   const navLinks = [
     { href: "/", label: "Home", icon: <Home className="w-4 h-4 mr-1" /> },
+    { href: "/about", label: "About", icon: <Info className="w-4 h-4 mr-1" /> },
     { href: "/naploo", label: "Naploo™", icon: <FaBed className="w-4 h-4 mr-1" /> },
     { href: "/beauty-care", label: "BeautyCare", icon: <FaSpa className="w-4 h-4 mr-1" /> },
     { href: "/cloud-drive", label: "CloudDrive™", icon: <FaCloudUploadAlt className="w-4 h-4 mr-1" /> },

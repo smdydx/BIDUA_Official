@@ -19,10 +19,10 @@ export function AboutSection() {
             <p className="text-lg leading-relaxed mb-8">
               BIDUA Industries is a visionary multi-division Indian company dedicated to empowering customers and businesses with excellence, innovation, and trust. Our diverse portfolio spans across Hospitality, Beauty, Electronics, FMCG, OEM, Technology, Blockchain, and more.
             </p>
-            <Link href="/About">
-              {/* <Button variant="default" className="cta-button">
+            <Link href="/about">
+              <Button variant="default" className="cta-button">
                 Learn More About BIDUA
-              </Button> */}
+              </Button>
             </Link>
           </div>
         </motion.div>

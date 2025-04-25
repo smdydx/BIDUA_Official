@@ -1,333 +1,207 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Users, MessageSquare, TrendingUp, Package2, Cloud, Building2,
-  Sparkles, Cpu, FileText, BarChart3, Settings, Mail,
-  CheckCircle, Clock, XCircle, Filter, Download
+  Sparkles, Cpu, FileText, BarChart3, Settings, Mail, Bell,
+  CheckCircle, Clock, XCircle, Filter, Download, Search,
+  ChevronDown, Calendar, DollarSign, Activity, ArrowUp,
+  ArrowDown, Star, AlertCircle
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, LineChart, Line } from "recharts";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedDivision, setSelectedDivision] = useState("all");
-  const [ticketFilter, setTicketFilter] = useState("all");
+  const [dateRange, setDateRange] = useState("week");
 
-  const divisions = [
-    { id: "naploo", name: "Naploo", icon: Building2, leads: 45 },
-    { id: "beauty", name: "Beauty Care", icon: Sparkles, leads: 30 },
-    { id: "cloud", name: "CloudDrive", icon: Cloud, leads: 25 },
-    { id: "oem", name: "OEM Solutions", icon: Package2, leads: 35 },
-    { id: "it", name: "IT Connect", icon: Cpu, leads: 28 }
+  const notifications = [
+    { id: 1, title: "New Lead", message: "Naploo Investment Query from Mumbai", time: "5m ago", type: "lead" },
+    { id: 2, title: "Urgent", message: "OEM Partner Request Pending", time: "30m ago", type: "urgent" },
+    { id: 3, title: "System", message: "Backup Completed Successfully", time: "1h ago", type: "system" },
   ];
 
-  const tickets = [
-    {
-      id: "TKT001",
-      subject: "Naploo Investment Query",
-      status: "open",
-      priority: "high",
-      division: "naploo",
-      assignedTo: "Sales Team",
-      createdAt: "2024-01-20"
-    },
-    // Add more mock tickets as needed
+  const revenueData = [
+    { month: "Jan", revenue: 45000 },
+    { month: "Feb", revenue: 52000 },
+    { month: "Mar", revenue: 61000 },
+    { month: "Apr", revenue: 58000 },
+    { month: "May", revenue: 71000 },
+    { month: "Jun", revenue: 68000 },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Top Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
-        <StatsCard 
-          title="Total Leads" 
-          value="163"
-          icon={TrendingUp}
-          change="+12% from last month"
-        />
-        <StatsCard 
-          title="Open Tickets" 
-          value="28"
-          icon={MessageSquare}
-          change="5 high priority"
-        />
-        <StatsCard 
-          title="Active Users" 
-          value="2,856"
-          icon={Users}
-          change="+18% this week"
-        />
-        <StatsCard 
-          title="Conversion Rate" 
-          value="24.8%"
-          icon={BarChart3}
-          change="+2.3% from last month"
-        />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <p className="text-muted-foreground mt-1">Welcome back, Admin</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <Bell className="w-6 h-6 cursor-pointer" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center">3</span>
+          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="gap-2">
+                This Week <ChevronDown className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => setDateRange("day")}>Today</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDateRange("week")}>This Week</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setDateRange("month")}>This Month</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-blue-100">Total Revenue</p>
+                <h3 className="text-3xl font-bold mt-2">₹3.2L</h3>
+                <p className="flex items-center gap-1 text-blue-100 mt-2">
+                  <ArrowUp className="w-4 h-4" /> +12.5%
+                </p>
+              </div>
+              <DollarSign className="w-8 h-8 opacity-80" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-muted-foreground">Active Users</p>
+                <h3 className="text-3xl font-bold mt-2">2,841</h3>
+                <p className="flex items-center gap-1 text-green-600 mt-2">
+                  <ArrowUp className="w-4 h-4" /> +8.1%
+                </p>
+              </div>
+              <Users className="w-8 h-8 text-blue-500" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-muted-foreground">Pending Tasks</p>
+                <h3 className="text-3xl font-bold mt-2">12</h3>
+                <p className="flex items-center gap-1 text-amber-600 mt-2">
+                  <Clock className="w-4 h-4" /> 5 urgent
+                </p>
+              </div>
+              <AlertCircle className="w-8 h-8 text-amber-500" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-muted-foreground">Customer Rating</p>
+                <h3 className="text-3xl font-bold mt-2">4.8</h3>
+                <p className="flex items-center gap-1 text-green-600 mt-2">
+                  <Star className="w-4 h-4" /> Excellent
+                </p>
+              </div>
+              <Activity className="w-8 h-8 text-green-500" />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Main Content */}
-      <div className="p-4">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="leads">Leads Management</TabsTrigger>
-            <TabsTrigger value="tickets">Ticket System</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {/* Division Performance */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Division Performance</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={divisions}
-                          dataKey="leads"
-                          nameKey="name"
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={80}
-                          label
-                        >
-                          {divisions.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={`hsl(${index * 45}, 70%, 50%)`} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Recent Activity */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      { text: "New Naploo investment inquiry", time: "5 minutes ago" },
-                      { text: "Beauty Care distributor application", time: "23 minutes ago" },
-                      { text: "CloudDrive pre-booking", time: "1 hour ago" },
-                      { text: "OEM partnership request", time: "2 hours ago" }
-                    ].map((activity, i) => (
-                      <div key={i} className="flex items-center justify-between py-2">
-                        <div className="flex items-center">
-                          <div className="w-2 h-2 bg-primary rounded-full mr-2" />
-                          <span>{activity.text}</span>
-                        </div>
-                        <span className="text-sm text-muted-foreground">{activity.time}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Charts Section */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle>Revenue Overview</CardTitle>
+            <CardDescription>Monthly revenue breakdown</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={revenueData}>
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="revenue" stroke="#2563eb" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
-          </TabsContent>
+          </CardContent>
+        </Card>
 
-          <TabsContent value="leads">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Leads Management</CardTitle>
-                <div className="flex gap-2">
-                  <Select value={selectedDivision} onValueChange={setSelectedDivision}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Select Division" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Divisions</SelectItem>
-                      {divisions.map(div => (
-                        <SelectItem key={div.id} value={div.id}>{div.name}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Button variant="outline" size="icon">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b bg-muted/50">
-                        <th className="p-2 text-left">ID</th>
-                        <th className="p-2 text-left">Name</th>
-                        <th className="p-2 text-left">Division</th>
-                        <th className="p-2 text-left">Status</th>
-                        <th className="p-2 text-left">Assigned To</th>
-                        <th className="p-2 text-left">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* Add mock leads data here */}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="tickets">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Ticket System</CardTitle>
-                <div className="flex gap-2">
-                  <Select value={ticketFilter} onValueChange={setTicketFilter}>
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Filter Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="open">Open</SelectItem>
-                      <SelectItem value="progress">In Progress</SelectItem>
-                      <SelectItem value="resolved">Resolved</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b bg-muted/50">
-                        <th className="p-2 text-left">Ticket ID</th>
-                        <th className="p-2 text-left">Subject</th>
-                        <th className="p-2 text-left">Status</th>
-                        <th className="p-2 text-left">Priority</th>
-                        <th className="p-2 text-left">Division</th>
-                        <th className="p-2 text-left">Assigned To</th>
-                        <th className="p-2 text-left">Created At</th>
-                        <th className="p-2 text-left">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tickets.map(ticket => (
-                        <tr key={ticket.id} className="border-b">
-                          <td className="p-2">{ticket.id}</td>
-                          <td className="p-2">{ticket.subject}</td>
-                          <td className="p-2">
-                            <Badge variant={
-                              ticket.status === "open" ? "default" :
-                              ticket.status === "progress" ? "secondary" : "success"
-                            }>
-                              {ticket.status}
-                            </Badge>
-                          </td>
-                          <td className="p-2">
-                            <Badge variant={ticket.priority === "high" ? "destructive" : "outline"}>
-                              {ticket.priority}
-                            </Badge>
-                          </td>
-                          <td className="p-2">{ticket.division}</td>
-                          <td className="p-2">{ticket.assignedTo}</td>
-                          <td className="p-2">{ticket.createdAt}</td>
-                          <td className="p-2">
-                            <Button variant="outline" size="sm">View</Button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="analytics">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Lead Sources</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={[
-                        { source: "Website", count: 45 },
-                        { source: "Social Media", count: 35 },
-                        { source: "Referral", count: 20 },
-                        { source: "Direct", count: 15 }
-                      ]}>
-                        <XAxis dataKey="source" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="count" fill="#8884d8" />
-                      </BarChart>
-                    </ResponsiveContainer>
+        {/* Notifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Notifications</CardTitle>
+            <CardDescription>Latest updates and alerts</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {notifications.map(notification => (
+                <div key={notification.id} className="flex items-start gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <div className={`p-2 rounded-full ${
+                    notification.type === 'urgent' ? 'bg-red-100 text-red-600' :
+                    notification.type === 'lead' ? 'bg-green-100 text-green-600' :
+                    'bg-blue-100 text-blue-600'
+                  }`}>
+                    {notification.type === 'urgent' ? <AlertCircle className="w-4 h-4" /> :
+                     notification.type === 'lead' ? <Users className="w-4 h-4" /> :
+                     <Bell className="w-4 h-4" />}
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Conversion Status</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={[
-                            { status: "Converted", value: 35 },
-                            { status: "In Progress", value: 45 },
-                            { status: "Lost", value: 20 }
-                          ]}
-                          dataKey="value"
-                          nameKey="status"
-                          cx="50%"
-                          cy="50%"
-                          outerRadius={80}
-                          label
-                        >
-                          <Cell fill="#4CAF50" />
-                          <Cell fill="#2196F3" />
-                          <Cell fill="#F44336" />
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                      </PieChart>
-                    </ResponsiveContainer>
+                  <div className="flex-1">
+                    <h4 className="font-medium">{notification.title}</h4>
+                    <p className="text-sm text-muted-foreground">{notification.message}</p>
+                    <span className="text-xs text-muted-foreground mt-1">{notification.time}</span>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              ))}
             </div>
-          </TabsContent>
-        </Tabs>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="mt-6">
+        <h3 className="text-lg font-medium mb-4">Quick Actions</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+            <Users className="w-5 h-5" />
+            <span>Manage Users</span>
+          </Button>
+          <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+            <Package2 className="w-5 h-5" />
+            <span>Add Product</span>
+          </Button>
+          <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+            <FileText className="w-5 h-5" />
+            <span>View Reports</span>
+          </Button>
+          <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+            <Settings className="w-5 h-5" />
+            <span>Settings</span>
+          </Button>
+        </div>
       </div>
     </div>
-  );
-}
-
-function StatsCard({ title, value, icon: Icon, change }) {
-  return (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-muted-foreground">{title}</p>
-            <h3 className="text-2xl font-bold mt-2">{value}</h3>
-            <p className="text-sm mt-2 text-muted-foreground">{change}</p>
-          </div>
-          <div className="p-3 bg-primary/10 rounded-full">
-            <Icon className="h-6 w-6 text-primary" />
-          </div>
-        </div>
-      </CardContent>
-    </Card>
   );
 }

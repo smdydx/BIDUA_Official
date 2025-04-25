@@ -13,7 +13,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd BiduaIndustries-1 && npm install && npm run dev"
+args = "cd BiduaIndustries-1 && npm run dev"
 
 [[ports]]
 localPort = 5000

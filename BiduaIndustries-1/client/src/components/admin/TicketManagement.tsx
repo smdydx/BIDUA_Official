@@ -14,6 +14,42 @@ const MOCK_TICKETS = [
     priority: "High",
     assignedTeam: "Sales",
     lastUpdate: "2024-01-20"
+  },
+  {
+    id: "TKT002",
+    subject: "Beauty Product Delivery Issue",
+    customer: "Priya Sharma",
+    status: "In Progress",
+    priority: "Medium",
+    assignedTeam: "Support",
+    lastUpdate: "2024-01-19"
+  },
+  {
+    id: "TKT003",
+    subject: "Naploo Pod Booking Confirmation",
+    customer: "Rahul Verma",
+    status: "Resolved",
+    priority: "Low",
+    assignedTeam: "Sales",
+    lastUpdate: "2024-01-18"
+  },
+  {
+    id: "TKT004",
+    subject: "IT Connect Service Request",
+    customer: "Sneha Das",
+    status: "Open",
+    priority: "High",
+    assignedTeam: "Technical",
+    lastUpdate: "2024-01-17"
+  },
+  {
+    id: "TKT005",
+    subject: "OEM Partnership Discussion",
+    customer: "Vikram Singh",
+    status: "In Progress",
+    priority: "Medium",
+    assignedTeam: "Business",
+    lastUpdate: "2024-01-16"
   }
 ];
 

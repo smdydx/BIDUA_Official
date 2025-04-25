@@ -28,12 +28,28 @@ export default function AdminDashboard() {
   ];
 
   const revenueData = [
-    { month: "Jan", revenue: 45000 },
-    { month: "Feb", revenue: 52000 },
-    { month: "Mar", revenue: 61000 },
-    { month: "Apr", revenue: 58000 },
-    { month: "May", revenue: 71000 },
-    { month: "Jun", revenue: 68000 },
+    { month: "Jan", revenue: 45000, leads: 24 },
+    { month: "Feb", revenue: 52000, leads: 28 },
+    { month: "Mar", revenue: 61000, leads: 35 },
+    { month: "Apr", revenue: 58000, leads: 30 },
+    { month: "May", revenue: 71000, leads: 42 },
+    { month: "Jun", revenue: 68000, leads: 38 },
+  ];
+
+  const divisionData = [
+    { name: "Naploo", value: 35 },
+    { name: "Beauty Care", value: 25 },
+    { name: "CloudDrive", value: 20 },
+    { name: "OEM", value: 15 },
+    { name: "IT Connect", value: 5 },
+  ];
+
+  const notifications = [
+    { id: 1, title: "New Lead", message: "Naploo Investment Query from Mumbai", time: "5m ago", type: "lead" },
+    { id: 2, title: "Urgent", message: "OEM Partner Request Pending", time: "30m ago", type: "urgent" },
+    { id: 3, title: "System", message: "Backup Completed Successfully", time: "1h ago", type: "system" },
+    { id: 4, title: "Update", message: "New Beauty Product Added", time: "2h ago", type: "system" },
+    { id: 5, title: "Alert", message: "CloudDrive Server Maintenance", time: "3h ago", type: "urgent" },
   ];
 
   return (

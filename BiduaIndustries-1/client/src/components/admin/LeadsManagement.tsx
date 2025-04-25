@@ -24,6 +24,33 @@ const MOCK_LEADS = [
     status: "In Progress",
     date: "2024-01-19",
     assignedTo: "Product Team"
+  },
+  {
+    id: "LEAD003",
+    name: "Amit Patel",
+    division: "CloudDrive",
+    type: "Pre-Order",
+    status: "Contacted",
+    date: "2024-01-18",
+    assignedTo: "Tech Team"
+  },
+  {
+    id: "LEAD004",
+    name: "Sneha Reddy",
+    division: "OEM",
+    type: "Partnership",
+    status: "New",
+    date: "2024-01-17",
+    assignedTo: "Business Team"
+  },
+  {
+    id: "LEAD005",
+    name: "Mohammed Khan",
+    division: "IT Connect",
+    type: "Service",
+    status: "In Progress",
+    date: "2024-01-16",
+    assignedTo: "Sales Team"
   }
 ];
 

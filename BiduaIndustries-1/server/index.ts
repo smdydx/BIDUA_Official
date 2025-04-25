@@ -59,12 +59,17 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on port 5000
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = 5000;
+  const port = process.env.PORT || 5000;
   server.listen({
     port,
     host: "0.0.0.0",
-    
-  }, () => {
-    log(`serving on port ${port}`);
+  }).on('error', (e) => {
+    if (e.code === 'EADDRINUSE') {
+      log(`Port ${port} is busy, trying ${port + 1}`);
+      server.listen(port + 1, "0.0.0.0");
+    }
+  }).on('listening', () => {
+    const addr = server.address();
+    log(`serving on port ${typeof addr === 'object' ? addr?.port : port}`);
   });
 })();

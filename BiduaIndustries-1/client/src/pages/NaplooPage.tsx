@@ -2,9 +2,24 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Check, Clock, Shield, Heart, Award, Star } from "lucide-react";
+import { Check, Clock, Shield, Heart, Award ,Sparkles, MonitorSmartphone, Wifi, BatteryCharging, ThermometerSnowflake, LockKeyhole, BedDouble, ShieldCheck, Star } from "lucide-react";
+import mainImage from '../assets/NaplooImg/main.jpeg';
+import img1 from '../assets/NaplooImg/1.jpg';
+import img2 from '../assets/NaplooImg/2.jpg';
+import img3 from '../assets/NaplooImg/3.jpg';
+// import img4 from '../assets/NaplooImg/4.jpg';
+import img5 from '../assets/NaplooImg/5.jpg';
+import img6 from '../assets/NaplooImg/6.jpg';
+import img7 from '../assets/NaplooImg/7.jpg';
+import img8 from '../assets/NaplooImg/8.jpg';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default function NaplooPage() {
+  
   return (
     <>
       <Helmet>
@@ -42,17 +57,19 @@ export default function NaplooPage() {
               </div>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="rounded-xl overflow-hidden shadow-xl"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80" 
-                alt="Naploo Pod Hotel" 
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
+             initial={{ opacity: 0, scale: 0.95 }}
+             animate={{ opacity: 1, scale: 1 }}
+             transition={{ duration: 0.6, ease: "easeOut" }}
+             className="p-1.5 rounded-2xl bg-gradient-to-r from-[hsl(142,53%,22%)] via-green-300 "
+             >
+             <div className="overflow-hidden rounded-2xl">
+             <img 
+             src={mainImage} 
+             alt="Naploo Pod Hotel" 
+             className="w-full h-full object-cover rounded-2xl hover:scale-110 transition-transform duration-700 ease-in-out"
+             />
+             </div>
+             </motion.div>
           </div>
         </div>
       </section>
@@ -77,7 +94,7 @@ export default function NaplooPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: Star,
+                icon: Sparkles,
                 title: "Ambient Mood Lighting",
                 description: "Customize your pod's lighting to suit your mood"
               },
@@ -87,37 +104,37 @@ export default function NaplooPage() {
                 description: "Freshen up in the privacy of your own pod"
               },
               {
-                icon: Star,
+                icon: MonitorSmartphone,
                 title: "Smart TV with Headphones",
                 description: "Enjoy entertainment without disturbing others"
               },
               {
-                icon: Star,
+                icon: Wifi,
                 title: "WiFi Connectivity",
                 description: "Stay connected with high-speed internet"
               },
               {
-                icon: Star,
+                icon: BatteryCharging,
                 title: "Charging Ports",
                 description: "Keep all your devices powered up"
               },
               {
-                icon: Star,
+                icon: ThermometerSnowflake,
                 title: "Climate Control",
                 description: "Adjust temperature to your comfort (AC/Heater)"
               },
               {
-                icon: Star,
+                icon: LockKeyhole,
                 title: "Personal In-Pod Locker",
                 description: "Secure storage for your valuables"
               },
               {
-                icon: Star,
+                icon: BedDouble,
                 title: "High-Quality Mattress",
                 description: "Premium comfort for the perfect rest"
               },
               {
-                icon: Star,
+                icon: ShieldCheck,
                 title: "Fireproof & Soundproof",
                 description: "Safe and quiet environment"
               }
@@ -130,7 +147,7 @@ export default function NaplooPage() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="bg-card p-6 rounded-lg border-l-4 border-secondary"
               >
-                <div className="w-12 h-12 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+                <div className="w-12 h-12  bg-opacity-20 rounded-full flex items-center justify-center mb-4">
                   <feature.icon className="text-secondary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
@@ -177,13 +194,73 @@ export default function NaplooPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-xl overflow-hidden shadow-xl h-full"
+              className="p-1.5 rounded-2xl bg-gradient-to-r from-[hsl(142,53%,22%)] via-green-300 "
             >
-              <img 
-                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" 
-                alt="Naploo Hotel Facilities" 
-                className="w-full h-full object-cover"
-              />
+   <Swiper
+    modules={[Navigation, Pagination, Autoplay]}
+    navigation
+    pagination={{ clickable: true }}
+    autoplay={{ delay: 3000 }}
+    loop={true}
+    className="h-full w-full rounded-2xl"
+  >
+    <SwiperSlide>
+      <img 
+        src={img1}
+        alt="Naploo Hotel Facility 1"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    <SwiperSlide>
+      <img 
+        src={img2}
+        alt="Naploo Hotel Facility 2"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    <SwiperSlide>
+      <img 
+        src={img3}
+        alt="Naploo Hotel Facility 3"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    {/* <SwiperSlide>
+      <img 
+        src=""
+        alt="Naploo Hotel Facility 1"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide> */}
+    <SwiperSlide>
+      <img 
+        src={img5}
+        alt="Naploo Hotel Facility 2"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    <SwiperSlide>
+      <img 
+        src={img6}
+        alt="Naploo Hotel Facility 3"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    <SwiperSlide>
+      <img 
+        src={img7}
+        alt="Naploo Hotel Facility 1"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+    <SwiperSlide>
+      <img 
+        src={img8}
+        alt="Naploo Hotel Facility 2"
+        className="w-full h-full object-cover"
+      />
+    </SwiperSlide>
+  </Swiper>
             </motion.div>
 
             <div className="space-y-6">
@@ -399,7 +476,8 @@ export default function NaplooPage() {
               },
               {
                 title: "Highways and Rest Stops",
-                image: "https://images.unsplash.com/photo-1473445730015-841a51e0096f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80"
+
               },
               {
                 title: "Railway Stations",
@@ -496,7 +574,7 @@ export default function NaplooPage() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="bg-card p-6 rounded-lg"
               >
-                <div className="w-12 h-12 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-opacity-20 rounded-full flex items-center justify-center mb-4">
                   <feature.icon className="text-secondary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>

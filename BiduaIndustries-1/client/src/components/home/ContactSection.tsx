@@ -43,7 +43,7 @@ export function ContactSection() {
             {/* Map */}
             <div className="h-60 bg-muted rounded-lg mb-8 overflow-hidden">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.209!3d28.6139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM2JzUzLjgiTiA3N8KwMTInMzIuNCJF!5e0!3m2!1sen!2sin!4v1596527836269!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d56040.737400913495!2d77.32648402975683!3d28.613391072554688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x390ce551c3000001%3A0x9e255a18f6cf17e7!2siON%20Digital%20Zone%2C%2030%2F7A%2C%20BHA%20Millenium%20Rd%2C%20C%20Block%2C%20Phase%202%2C%20Industrial%20Area%2C%20Sector%2062%2C%20Noida%2C%20Uttar%20Pradesh%20201309!3m2!1d28.6134944!2d77.36768789999999!5e0!3m2!1sen!2sin!4v1745647751871!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }}
@@ -64,9 +64,9 @@ export function ContactSection() {
                 <div>
                   <h4 className="text-xl font-bold mb-2">Office Address</h4>
                   <p className="text-foreground opacity-80">
-                    BIDUA Industries Pvt Ltd.<br />
-                    123 Innovation Hub, Sector 62<br />
-                    Noida, Uttar Pradesh, India - 201301
+                    Ramaera Industries Pvt Ltd.<br />
+                    H-77 Ground floor, Sec 62 <br />
+                    Noida, UP, India Pin 201305
                   </p>
                 </div>
               </div>
@@ -78,10 +78,10 @@ export function ContactSection() {
                 <div>
                   <h4 className="text-xl font-bold mb-2">Email</h4>
                   <p className="text-foreground opacity-80">
-                    General Inquiries: <a href="mailto:info@bidua.in" className="hover:text-secondary transition-colors">info@bidua.in</a>
+                    General Inquiries: <a href="mailto:info@bidua.in" className="hover:text-secondary transition-colors">biduaindustries@gmail.com</a>
                   </p>
                   <p className="text-foreground opacity-80">
-                    Investment Inquiries: <a href="mailto:invest@bidua.in" className="hover:text-secondary transition-colors">invest@bidua.in</a>
+                    {/* Investment Inquiries: <a href="mailto:invest@bidua.in" className="hover:text-secondary transition-colors">invest@bidua.in</a> */}
                   </p>
                 </div>
               </div>
@@ -93,10 +93,10 @@ export function ContactSection() {
                 <div>
                   <h4 className="text-xl font-bold mb-2">Phone</h4>
                   <p className="text-foreground opacity-80">
-                    Customer Support: <a href="tel:+911234567890" className="hover:text-secondary transition-colors">+91 123 456 7890</a>
+                    Customer Support: <a href="tel:+911234567890" className="hover:text-secondary transition-colors">+91 xxx xxx xxxx</a>
                   </p>
                   <p className="text-foreground opacity-80">
-                    Investor Relations: <a href="tel:+911234567891" className="hover:text-secondary transition-colors">+91 123 456 7891</a>
+                    Investor Relations: <a href="tel:+911234567891" className="hover:text-secondary transition-colors">+91 xxx xxx xxxx</a>
                   </p>
                 </div>
               </div>

@@ -77,8 +77,9 @@ export function Footer() {
             <div className="flex flex-col space-y-3 mb-6">
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-secondary" />
-                <span className="text-sm">C/o Ramaera Industries Ltd 
-                 H77-Ground floor, Sec 62 , Noida, UP Pin 201305</span>
+                <p className="text-sm">C/O Ramaera Industries Pvt Ltd <br/>
+                 H-77 Ground floor, Sec 62 <br/>
+                 Noida, UP, India Pin 201305</p>
               </div>
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 text-secondary" />
